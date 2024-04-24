@@ -49,7 +49,7 @@ public class CartController {
 		product.setBookID(productDetails.getBookID());
 		//product.setBookName(productDetails.getBookName());
 		product.setCustQty(productDetails.getCustQty());
-		//product.setTotalQty(productDetails.getTotalQty());
+		product.setTotalQty(productDetails.getTotalQty());
 		product.setPrice(productDetails.getPrice());
 		
 		Product updatedEmployee = productRepository.save(product);
