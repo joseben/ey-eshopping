@@ -50,7 +50,7 @@ public class CartController {
 		//product.setBookName(productDetails.getBookName());
 		product.setCustQty(productDetails.getCustQty());
 		//product.setTotalQty(productDetails.getTotalQty());
-		//product.setPrice(productDetails.getPrice());
+		product.setPrice(productDetails.getPrice());
 		
 		Product updatedEmployee = productRepository.save(product);
 		return ResponseEntity.ok(updatedEmployee);
