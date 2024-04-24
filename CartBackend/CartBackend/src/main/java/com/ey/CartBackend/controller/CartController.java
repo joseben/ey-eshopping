@@ -56,12 +56,6 @@ public class CartController {
 		return ResponseEntity.ok(updatedEmployee);
 	}
 	
-	public void updateCustomer(CustomerDto dto) {
-	    Customer myCustomer = repo.findById(dto.id);
-	    mapper.updateCustomerFromDto(dto, myCustomer);
-	    repo.save(myCustomer);
-	}
-	
 	// delete product rest api
 	@DeleteMapping("/products/{id}")
 	public ResponseEntity<Map<String, Boolean>> deleteEmployee(@PathVariable String id){
