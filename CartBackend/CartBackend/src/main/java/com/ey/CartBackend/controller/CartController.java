@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.Mapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,9 +56,10 @@ public class CartController {
 		return ResponseEntity.ok(updatedEmployee);
 	}
 	
-	@Mapping(componentModel = "spring")
-	public interface CustomerMapper {
-	    void updateCustomerFromDto(CustomerDto dto, @MappingTarget Customer entity);
+	public void updateCustomer(CustomerDto dto) {
+	    Customer myCustomer = repo.findById(dto.id);
+	    mapper.updateCustomerFromDto(dto, myCustomer);
+	    repo.save(myCustomer);
 	}
 	
 	// delete product rest api
