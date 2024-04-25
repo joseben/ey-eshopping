@@ -3,6 +3,7 @@ package com.ey.CartBackend.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,9 +19,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ey.CartBackend.exception.ResourceNotFoundException;
-import com.ey.CartBackend.model.CustQtyOnly;
+//import com.ey.CartBackend.model.CustQtyOnly;
 import com.ey.CartBackend.model.Product;
-import com.ey.CartBackend.repository.CustQtyRepository;
+//import com.ey.CartBackend.repository.CustRepository;
 import com.ey.CartBackend.repository.ProductRepository;
 
 
@@ -33,6 +34,9 @@ public class CartController {
 	@Autowired
 	private ProductRepository productRepository;
 	
+//	@Autowired
+//	private CustRepository custRepository;
+		
 	@GetMapping("/products")
 	public List<Product> getAllProducts(){
 		return productRepository.findAll();
@@ -72,14 +76,33 @@ public class CartController {
 //	}
 	
 	//updating only the customer Quantity
-	@PatchMapping("/products/{id}")
-	public ResponseEntity<?> partialUpdateName(
-	  @RequestBody CustQtyOnly partialUpdate, @PathVariable("id") String id) {
-	    
-		CustQtyRepository.save(partialUpdate);
-	    return ResponseEntity.ok("resource address updated");
-	}
+//    @PatchMapping("/products/{id}")
+//    public CustQtyOnly updateCustQty(@PathVariable String id, @RequestBody CustQtyOnly updatedCustQty) {
+//        Optional<CustQtyOnly> optionalUser = custRepository.findById(id);
+//        if (optionalUser.isPresent()) {
+//        	CustQtyOnly user = optionalUser.get();
+//            user.setCustQty(updatedCustQty.getCustQty());
+//            return custRepository.save(user);
+//        } else {
+//            throw new RuntimeException("User not found with id: " + id);
+//        }
+//    }
+//	
 	
+	@PatchMapping("/{id}")
+    public Product updateProduct(@PathVariable String id, @RequestBody Product updatedProduct) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            // Update specific values based on the request
+            if (updatedProduct.getCustQty() != null) {
+                product.setCustQty(updatedProduct.getCustQty());
+            }
+            return productRepository.save(product);
+        } else {
+            throw new RuntimeException("Product not found with id: " + id);
+        }
+	}
 	
 	// delete product rest api
 	@DeleteMapping("/products/{id}")
