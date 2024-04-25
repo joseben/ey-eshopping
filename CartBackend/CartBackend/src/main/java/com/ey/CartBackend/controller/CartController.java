@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ey.CartBackend.exception.ResourceNotFoundException;
+import com.ey.CartBackend.model.CustQtyOnly;
 import com.ey.CartBackend.model.Product;
+import com.ey.CartBackend.repository.CustQtyRepository;
 import com.ey.CartBackend.repository.ProductRepository;
 
 
@@ -58,16 +60,26 @@ public class CartController {
 	}
 	
 	//updating only the customer Quantity
+//	@PatchMapping("/products/{id}")
+//	public ResponseEntity<?> partialUpdateCustQty(
+//	  @RequestBody Map<String, String> updates, @PathVariable("id") String id) {
+//	    
+//	    if(updates.containsKey("CustQty")) {
+//	    	productRepository.updateCustQty(id, updates.get("CustQty"));
+//	        return ResponseEntity.ok("CustQty updated");
+//	    }
+//	    return ResponseEntity.badRequest().body("CustQty not provided");
+//	}
+	
+	//updating only the customer Quantity
 	@PatchMapping("/products/{id}")
-	public ResponseEntity<?> partialUpdateCustQty(
-	  @RequestBody Map<String, String> updates, @PathVariable("id") String id) {
+	public ResponseEntity<?> partialUpdateName(
+	  @RequestBody CustQtyOnly partialUpdate, @PathVariable("id") String id) {
 	    
-	    if(updates.containsKey("CustQty")) {
-	    	productRepository.updateCustQty(id, updates.get("CustQty"));
-	        return ResponseEntity.ok("CustQty updated");
-	    }
-	    return ResponseEntity.badRequest().body("CustQty not provided");
+		CustQtyRepository.save(partialUpdate);
+	    return ResponseEntity.ok("resource address updated");
 	}
+	
 	
 	// delete product rest api
 	@DeleteMapping("/products/{id}")
