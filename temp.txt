@@ -4,21 +4,30 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/products")
+public class ProductController {
 
     @Autowired
-    private UserRepository userRepository;
+    private ProductRepository productRepository;
 
     @PatchMapping("/{id}")
-    public User updateUserEmail(@PathVariable Long id, @RequestBody User updatedUser) {
-        Optional<User> optionalUser = userRepository.findById(id);
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            user.setEmail(updatedUser.getEmail());
-            return userRepository.save(user);
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
+        Optional<Product> optionalProduct = productRepository.findById(id);
+        if (optionalProduct.isPresent()) {
+            Product product = optionalProduct.get();
+            // Update specific values based on the request
+            if (updatedProduct.getName() != null) {
+                product.setName(updatedProduct.getName());
+            }
+            if (updatedProduct.getPrice() != null) {
+                product.setPrice(updatedProduct.getPrice());
+            }
+            if (updatedProduct.getQuantity() != null) {
+                product.setQuantity(updatedProduct.getQuantity());
+            }
+            return productRepository.save(product);
         } else {
-            throw new RuntimeException("User not found with id: " + id);
+            throw new RuntimeException("Product not found with id: " + id);
         }
     }
 }
