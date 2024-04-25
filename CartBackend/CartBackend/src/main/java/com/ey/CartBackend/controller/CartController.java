@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -54,6 +55,18 @@ public class CartController {
 		
 		Product updatedEmployee = productRepository.save(product);
 		return ResponseEntity.ok(updatedEmployee);
+	}
+	
+	//updating only the customer Quantity
+	@PatchMapping("/products/{id}")
+	public ResponseEntity<?> partialUpdateCustQty(
+	  @RequestBody Map<String, String> updates, @PathVariable("id") String id) {
+	    
+	    if(updates.containsKey("CustQty")) {
+	    	productRepository.updateCustQty(id, updates.get("CustQty"));
+	        return ResponseEntity.ok("CustQty updated");
+	    }
+	    return ResponseEntity.badRequest().body("CustQty not provided");
 	}
 	
 	// delete product rest api
