@@ -19,9 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ey.CartBackend.exception.ResourceNotFoundException;
-//import com.ey.CartBackend.model.CustQtyOnly;
 import com.ey.CartBackend.model.Product;
-//import com.ey.CartBackend.repository.CustRepository;
 import com.ey.CartBackend.repository.ProductRepository;
 
 
@@ -48,20 +46,20 @@ public class CartController {
 		return productRepository.save(product);
 	}
 	
-	@PutMapping("/products/{id}")
-	public ResponseEntity<Product> updateEmployee(@PathVariable String id, @RequestBody Product productDetails){
-		Product product = productRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("Product not exist with id :" + id));
-		
-		product.setBookID(productDetails.getBookID());
-		//product.setBookName(productDetails.getBookName());
-		product.setCustQty(productDetails.getCustQty());
-		//product.setTotalQty(productDetails.getTotalQty());
-		//product.setPrice(productDetails.getPrice());
-		
-		Product updatedEmployee = productRepository.save(product);
-		return ResponseEntity.ok(updatedEmployee);
-	}
+//	@PutMapping("/products/{id}")
+//	public ResponseEntity<Product> updateEmployee(@PathVariable String id, @RequestBody Product productDetails){
+//		Product product = productRepository.findById(id)
+//				.orElseThrow(() -> new ResourceNotFoundException("Product not exist with id :" + id));
+//		
+//		product.setBookID(productDetails.getBookID());
+//		//product.setBookName(productDetails.getBookName());
+//		product.setCustQty(productDetails.getCustQty());
+//		//product.setTotalQty(productDetails.getTotalQty());
+//		//product.setPrice(productDetails.getPrice());
+//		
+//		Product updatedEmployee = productRepository.save(product);
+//		return ResponseEntity.ok(updatedEmployee);
+//	}
 	
 	//updating only the customer Quantity
 //	@PatchMapping("/products/{id}")
@@ -89,20 +87,44 @@ public class CartController {
 //    }
 //	
 	
-	@PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable String id, @RequestBody Product updatedProduct) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            // Update specific values based on the request
-            if (updatedProduct.getCustQty() != null) {
-                product.setCustQty(updatedProduct.getCustQty());
-            }
-            return productRepository.save(product);
-        } else {
-            throw new RuntimeException("Product not found with id: " + id);
-        }
+//	@PatchMapping("/products/{id}")
+//    public Product updateProduct(@PathVariable String id, @RequestBody Product updatedProduct) {
+//        Optional<Product> optionalProduct = productRepository.findById(id);
+//        if (optionalProduct.isPresent()) {
+//            Product product = optionalProduct.get();
+//            // Update specific values based on the request
+//            if (updatedProduct.getCustQty() != null) {
+//                product.setCustQty(updatedProduct.getCustQty());
+//            }
+//            return productRepository.save(product);
+//        } else {
+//            throw new RuntimeException("Product not found with id: " + id);
+//        }
+//	}
+	
+	@PatchMapping("/products/{id}")
+	public Product updateProduct(@PathVariable String id, @RequestBody Map<String, Object> updates) {
+	    Optional<Product> optionalProduct = productRepository.findById(id);
+	    if (optionalProduct.isPresent()) {
+	        Product product = optionalProduct.get();
+	        // Update only the fields present in the request body
+	        updates.forEach((key, value) -> {
+	            switch (key) {
+	                case "custQty":
+	                    product.setCustQty((String) value);
+	                    break;
+	                
+	                default:
+	                    // Ignore unknown fields
+	                    break;
+	            }
+	        });
+	        return productRepository.save(product);
+	    } else {
+	        throw new RuntimeException("Product not found with id: " + id);
+	    }
 	}
+	
 	
 	// delete product rest api
 	@DeleteMapping("/products/{id}")

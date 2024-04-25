@@ -1,33 +1,27 @@
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-
-@RestController
-@RequestMapping("/products")
-public class ProductController {
-
-    @Autowired
-    private ProductRepository productRepository;
-
-    @PatchMapping("/{id}")
-    public Product updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        if (optionalProduct.isPresent()) {
-            Product product = optionalProduct.get();
-            // Update specific values based on the request
-            if (updatedProduct.getName() != null) {
-                product.setName(updatedProduct.getName());
+@PatchMapping("/{id}")
+public Product updateProduct(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+    Optional<Product> optionalProduct = productRepository.findById(id);
+    if (optionalProduct.isPresent()) {
+        Product product = optionalProduct.get();
+        // Update only the fields present in the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    product.setName((String) value);
+                    break;
+                case "price":
+                    product.setPrice((Double) value);
+                    break;
+                case "quantity":
+                    product.setQuantity((Integer) value);
+                    break;
+                default:
+                    // Ignore unknown fields
+                    break;
             }
-            if (updatedProduct.getPrice() != null) {
-                product.setPrice(updatedProduct.getPrice());
-            }
-            if (updatedProduct.getQuantity() != null) {
-                product.setQuantity(updatedProduct.getQuantity());
-            }
-            return productRepository.save(product);
-        } else {
-            throw new RuntimeException("Product not found with id: " + id);
-        }
+        });
+        return productRepository.save(product);
+    } else {
+        throw new RuntimeException("Product not found with id: " + id);
     }
 }
