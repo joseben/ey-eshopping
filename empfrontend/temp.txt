@@ -1,0 +1,9 @@
+ {
+        "bookName": "Harry Potter and Deathly Hallows",
+        "bookID": "Bk2",
+        "totalQty": "250",
+        "price": "100",
+        "custQty": "6"
+    }
+
+    
