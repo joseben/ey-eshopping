@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listBooks, deleteBook, updateBooks } from '../services/BookService';
+import { listBooks, deleteBook, updateBook } from '../services/BookService';
 
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
@@ -41,7 +41,7 @@ const ListBookComponent = () => {
 
     const saveQuantity = (bookId, index) => {
         const book = editedBooks[index];
-        updateBooks(bookId, book.bookName, book.editedQty, book.price, book.totalQty)
+        updateBook(bookId, book.bookName, book.editedQty, book.price, book.totalQty)
             .then(() => {
                 getAllBooks();
             })
