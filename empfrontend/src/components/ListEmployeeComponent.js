@@ -36,16 +36,19 @@ const ListBookComponent = () => {
         setBooks(updatedBooks);
     }
 
-    const saveQuantity = (bookId, bookName, price, custQty) => {
-        updateBook({ bookId, bookName, price, totalQty: 100, custQty })
-            .then(() => {
-                // Optional: Show a success message or perform any other action
-            })
-            .catch(error => {
-                console.log(error);
-                // Optional: Show an error message or perform any other action
-            });
-    }
+const saveQuantity = (bookId, bookName, price, custQty) => {
+    updateBook({ bookId, bookName, price, totalQty: 100, custQty })
+        .then(() => {
+            // Show a success message
+            console.log('Quantity updated successfully!');
+            // Perform any other action, such as refreshing the book list
+            getAllBooks();
+        })
+        .catch(error => {
+            console.log(error);
+            // Optional: Show an error message or perform any other action
+        });
+}
 
     return (
         <div className="container">
