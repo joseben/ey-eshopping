@@ -26,15 +26,17 @@ const ListBookComponent = () => {
         })
     }
 
-    const handleQuantityChange = (bookId, newQuantity) => {
-        const updatedBooks = books.map(book => {
+const handleQuantityChange = (bookId, newQuantity) => {
+    setBooks(prevBooks => {
+        return prevBooks.map(book => {
             if (book.id === bookId) {
                 return { ...book, custQty: newQuantity };
             }
             return book;
         });
-        setBooks(updatedBooks);
-    }
+    });
+}
+
 
 const saveQuantity = (bookId, bookName, price, custQty) => {
     updateBook({ bookId, bookName, price, totalQty: 100, custQty })
