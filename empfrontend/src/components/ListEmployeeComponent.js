@@ -46,7 +46,7 @@ const ListBookComponent = () => {
             bookName: editedBook.bookName,
             totalQty: editedBook.totalQty,
             price: editedBook.price,
-            custQty: editedBook.editedQty
+            custQty: editedBook.custQty
         };
     
         updateBook(bookId, updatedBook)
