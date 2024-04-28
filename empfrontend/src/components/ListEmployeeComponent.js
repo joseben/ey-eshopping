@@ -47,10 +47,10 @@ const ListBookComponent = () => {
                     {
                         books.map(
                             book =>
-                                <tr key={book.id}>
-                                    <td>{book.id}</td>
-                                    <td>{book.name}</td>
-                                    <td>{book.quantity}</td>
+                                <tr key={book.bookID}>
+                                    <td>{book.bookID}</td>
+                                    <td>{book.bookName}</td>
+                                    <td>{book.custQty}</td>
                                     <td>{book.price}</td>
                                     <td>
                                         <button className="btn btn-danger" onClick={() => removeBook(book.id)} style={{ marginLeft: "10px" }}>Delete</button>
