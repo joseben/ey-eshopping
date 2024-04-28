@@ -16,15 +16,15 @@ const ListBookComponent = () => {
             console.log(response.data);
         }).catch(error => {
             console.log(error);
-        })
+        });
     }
 
     const removeBook = (bookId) => {
-        deleteBook(bookId).then((response) => {
+        deleteBook(bookId).then(() => {
             getAllBooks();
         }).catch(error => {
             console.log(error);
-        })
+        });
     }
 
     function addNewBook() {
@@ -38,15 +38,15 @@ const ListBookComponent = () => {
     return (
         <div className="container">
             <br /><br />
-            <h2 className="text-center">Books List</h2>
+            <h2 className="text-center"> Books List</h2>
             <table className="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th>Book ID</th>
-                        <th>Book Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th> Book ID </th>
+                        <th> Book Name </th>
+                        <th> Quantity </th>
+                        <th> Book Price </th>
+                        <th> Actions </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,10 +54,10 @@ const ListBookComponent = () => {
                         books.map(
                             book =>
                                 <tr key={book.id}>
-                                    <td>{book.id}</td>
-                                    <td>{book.name}</td>
-                                    <td>{book.quantity}</td>
-                                    <td>{book.price}</td>
+                                    <td> {book.id} </td>
+                                    <td> {book.name} </td>
+                                    <td> {book.quantity} </td>
+                                    <td> {book.price} </td>
                                     <td>
                                         <button className="btn btn-info" onClick={() => updateBook(book.id)}>Update</button>
                                         <button className="btn btn-danger" onClick={() => removeBook(book.id)} style={{ marginLeft: "10px" }}>Delete</button>
@@ -68,7 +68,7 @@ const ListBookComponent = () => {
                 </tbody>
             </table>
         </div>
-    )
+    );
 }
 
 export default ListBookComponent;
