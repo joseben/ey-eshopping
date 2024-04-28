@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { listBooks, deleteBook, updateBook } from '../services/BookService';
 
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
-    const [editedBooks, setEditedBooks] = useState([]);
 
-    const navigate = useNavigate();
 
     useEffect(() => {
         getAllBooks();
@@ -15,7 +12,6 @@ const ListBookComponent = () => {
     const getAllBooks = () => {
         listBooks().then((response) => {
             setBooks(response.data);
-            setEditedBooks(response.data.map(book => ({ ...book, editedQty: book.custQty })));
             console.log(response.data);
         }).catch(error => {
             console.log(error);
@@ -30,23 +26,24 @@ const ListBookComponent = () => {
         })
     }
 
-    const handleQuantityChange = (index, event) => {
-        const { value } = event.target;
-        setEditedBooks(prevState => {
-            const updatedBooks = [...prevState];
-            updatedBooks[index].editedQty = value;
-            return updatedBooks;
+    const handleQuantityChange = (bookId, newQuantity) => {
+        const updatedBooks = books.map(book => {
+            if (book.id === bookId) {
+                return { ...book, custQty: newQuantity };
+            }
+            return book;
         });
+        setBooks(updatedBooks);
     }
 
-    const saveQuantity = (bookId, index) => {
-        const book = editedBooks[index];
-        updateBook(bookId, book.bookName, book.editedQty, book.price, book.totalQty)
+    const saveQuantity = (bookId, bookName, price, custQty) => {
+        updateBook({ bookId, bookName, price, totalQty: 100, custQty })
             .then(() => {
-                getAllBooks();
+                // Optional: Show a success message or perform any other action
             })
             .catch(error => {
                 console.log(error);
+                // Optional: Show an error message or perform any other action
             });
     }
 
@@ -66,35 +63,30 @@ const ListBookComponent = () => {
                 </thead>
                 <tbody>
                     {
-                        editedBooks.map((book, index) => (
-                            <tr key={book.bookID}>
-                                <td>{book.bookID}</td>
-                                <td>{book.bookName}</td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        value={book.editedQty}
-                                        onChange={(event) => handleQuantityChange(index, event)}
-                                    />
-                                </td>
-                                <td>{book.price}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-primary"
-                                        onClick={() => saveQuantity(book.bookID, index)}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => removeBook(book.bookID)}
-                                        style={{ marginLeft: "10px" }}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
+                        books.map(
+                            book =>
+                                <tr key={book.id}>
+                                    <td>{book.id}</td>
+                                    <td>{book.name}</td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={book.custQty}
+                                            onChange={(e) => handleQuantityChange(book.id, parseInt(e.target.value))}
+                                        />
+                                    </td>
+                                    <td>{book.price}</td>
+                                    <td>
+                                        <button
+                                            className="btn btn-success"
+                                            onClick={() => saveQuantity(book.id, book.name, book.price, book.custQty)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button className="btn btn-danger" onClick={() => removeBook(book.id)} style={{ marginLeft: "10px" }}>Delete</button>
+                                    </td>
+                                </tr>
+                        )
                     }
                 </tbody>
             </table>
