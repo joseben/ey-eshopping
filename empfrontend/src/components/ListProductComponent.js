@@ -1,24 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { listBooks, deleteBook, updateBook } from '../services/BookService';
-
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
     const [editedBooks, setEditedBooks] = useState([]);
-    const [grandTotal, setGrandTotal] = useState(0);
-
-    const navigate = useNavigate();
 
     useEffect(() => {
         getAllBooks();
     }, []);
-
-    useEffect(() => {
-        const totalPrice = editedBooks.reduce((total, book) => {
-            return total + (book.editedQty * book.price);
-        }, 0);
-        setGrandTotal(totalPrice);
-    }, [editedBooks]);
 
     const getAllBooks = () => {
         listBooks().then((response) => {
@@ -47,11 +33,25 @@ const ListBookComponent = () => {
         });
     }
 
+    const calculateTotalPrice = (book) => {
+        return book.custQty * book.price;
+    }
+
+    const calculateGrandTotal = () => {
+        return editedBooks.reduce((total, book) => total + (book.custQty * book.price), 0);
+    }
+
     const saveQuantity = (bookId, index) => {
         const editedBook = editedBooks[index];
-        const updatedBook = { ...editedBook, custQty: editedBook.editedQty };
-
-        updateBook(editedBook.bookID, updatedBook)
+        const updatedBook = {
+            bookID: editedBook.bookID,
+            bookName: editedBook.bookName,
+            totalQty: editedBook.totalQty,
+            price: editedBook.price,
+            custQty: editedBook.custQty
+        };
+    
+        updateBook(bookId, updatedBook)
             .then(() => {
                 getAllBooks();
             })
@@ -84,12 +84,12 @@ const ListBookComponent = () => {
                                 <td>
                                     <input
                                         type="number"
-                                        value={book.editedQty}
+                                        value={book.custQty}
                                         onChange={(event) => handleQuantityChange(index, event)}
                                     />
                                 </td>
                                 <td>{book.price}</td>
-                                <td>{book.editedQty * book.price}</td>
+                                <td>{calculateTotalPrice(book)}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary"
@@ -108,12 +108,14 @@ const ListBookComponent = () => {
                             </tr>
                         ))
                     }
+                </tbody>
+                <tfoot>
                     <tr>
-                        <td colSpan="4" style={{ textAlign: "right" }}>Grand Total:</td>
-                        <td>{grandTotal}</td>
+                        <td colSpan="4" className="text-end">Grand Total:</td>
+                        <td>{calculateGrandTotal()}</td>
                         <td></td>
                     </tr>
-                </tbody>
+                </tfoot>
             </table>
         </div>
     )
