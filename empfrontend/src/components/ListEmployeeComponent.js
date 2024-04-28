@@ -28,19 +28,11 @@ const ListBookComponent = () => {
         })
     }
 
-    function addNewBook() {
-        navigate('/add-book');
-    }
-
-    const updateBook = (id) => {
-        navigate(`/edit-book/${id}`);
-    }
 
     return (
         <div className="container">
             <br /><br />
-            <h2 className="text-center"> Books List</h2>
-            <button className="btn btn-primary mb-2" onClick={addNewBook}>Add Book</button>
+            <h2 className="text-center"> Your Shopping Cart</h2>
             <table className="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -61,7 +53,6 @@ const ListBookComponent = () => {
                                     <td>{book.quantity}</td>
                                     <td>{book.price}</td>
                                     <td>
-                                        <button className="btn btn-info" onClick={() => updateBook(book.id)}>Update</button>
                                         <button className="btn btn-danger" onClick={() => removeBook(book.id)} style={{ marginLeft: "10px" }}>Delete</button>
                                     </td>
                                 </tr>
