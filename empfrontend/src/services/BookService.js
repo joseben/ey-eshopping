@@ -18,7 +18,7 @@ export const getEmployeeById = async (productId) => {
     return response;
 }
 
-export const updateBook = async (productId, product) => {
+export const updateBooks = async (productId, product) => {
     const response = await axios.put(url + '/' +productId, product);
     return response;
 }
