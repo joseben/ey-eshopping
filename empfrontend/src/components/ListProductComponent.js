@@ -1,16 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listBooks, deleteBook, updateBook } from '../services/BookService';
-
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
     const [editedBooks, setEditedBooks] = useState([]);
     const navigate = useNavigate();
-
     useEffect(() => {
         getAllBooks();
     }, []);
-
     const getAllBooks = () => {
         listBooks().then((response) => {
             setBooks(response.data);
@@ -20,7 +17,6 @@ const ListBookComponent = () => {
             console.log(error);
         })
     }
-
     const removeBook = (bookId) => {
         deleteBook(bookId).then(() => {
             getAllBooks();
@@ -28,7 +24,6 @@ const ListBookComponent = () => {
             console.log(error);
         })
     }
-
     const handleQuantityChange = (index, event) => {
         const { value } = event.target;
         setEditedBooks(prevState => {
@@ -37,15 +32,6 @@ const ListBookComponent = () => {
             return updatedBooks;
         });
     }
-
-    const calculateTotalPrice = (book) => {
-        return book.custQty * book.price;
-    }
-
-    const calculateGrandTotal = () => {
-        return editedBooks.reduce((total, book) => total + (book.custQty * book.price), 0);
-    }
-
     const saveQuantity = (bookId, index) => {
         const editedBook = editedBooks[index];
         const updatedBook = {
@@ -55,7 +41,7 @@ const ListBookComponent = () => {
             price: editedBook.price,
             custQty: editedBook.custQty
         };
-    
+
         updateBook(bookId, updatedBook)
             .then(() => {
                 getAllBooks();
@@ -64,7 +50,6 @@ const ListBookComponent = () => {
                 console.log(error);
             });
     }
-
     return (
         <div className="container">
             <br /><br />
@@ -76,7 +61,6 @@ const ListBookComponent = () => {
                         <th>Book Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
-                        <th>Total Price</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -94,7 +78,6 @@ const ListBookComponent = () => {
                                     />
                                 </td>
                                 <td>{book.price}</td>
-                                <td>{calculateTotalPrice(book)}</td>
                                 <td>
                                     <button
                                         className="btn btn-primary"
@@ -114,20 +97,8 @@ const ListBookComponent = () => {
                         ))
                     }
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan="4" className="text-end">Grand Total:</td>
-                        <td><strong>{calculateGrandTotal()}</strong></td>
-                        <td></td>
-                    </tr>
-                </tfoot>
             </table>
-            <div className="text-center">
-                <button className="btn btn-success btn-lg" onClick={() => navigate("/payment")}>Proceed to Payment</button>
-
-            </div>
         </div>
     )
 }
-
 export default ListBookComponent;
