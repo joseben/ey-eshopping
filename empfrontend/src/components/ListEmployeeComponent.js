@@ -1,76 +1,90 @@
-import React, {useState, useEffect} from 'react'
-import { useNavigate } from 'react-router-dom'
-import {listEmployees, deleteEmployee} from '../services/EmployeeService'
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { listBooks, deleteBook, updateBook } from '../services/BookService';
 
 const ListEmployeeComponent = () => {
-
-    const [employees, setEmployees] = useState([])
-
-    const navigate = useNavigate()
+    const [books, setBooks] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        getAllEmployees();
-    }, [])
+        getAllBooks();
+    }, []);
 
-    const getAllEmployees = () => {
-        listEmployees().then((response) => {
-            setEmployees(response.data)
+    const getAllBooks = () => {
+        listBooks().then((response) => {
+            setBooks(response.data);
             console.log(response.data);
-        }).catch(error =>{
+        }).catch(error => {
             console.log(error);
         })
     }
 
-    const removeEmployee = (employeeId) => {
-       deleteEmployee(employeeId).then((response) =>{
-        getAllEmployees();
-
-       }).catch(error =>{
-           console.log(error);
-       })
-        
+    const removeBook = (bookId) => {
+        deleteBook(bookId).then((response) => {
+            getAllBooks();
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
-    function addNewEmployee() {
-        navigate('/add-employee')
+    const updateQuantity = (bookId, newQuantity) => {
+        updateBook(bookId, { quantity: newQuantity }).then((response) => {
+            getAllBooks();
+        }).catch(error => {
+            console.log(error);
+        })
     }
 
-    const updateEmployee = (id) => {
-        navigate(`/edit-employee/${id}`)
+    function addNewBook() {
+        navigate('/add-book');
+    }
+
+    const updateBook = (id) => {
+        navigate(`/edit-book/${id}`);
+    }
+
+    const handleQuantityChange = (event, bookId) => {
+        const newQuantity = parseInt(event.target.value);
+        if (!isNaN(newQuantity)) {
+            updateQuantity(bookId, newQuantity);
+        }
     }
 
     return (
-        <div className = "container">
+        <div className="container">
             <br /><br />
-            <h2 className = "text-center"> Employees List</h2>
-            {/* <Link to = "/add-employee" className = "btn btn-primary mb-2" > Add Employee </Link> */}
-            <button className = "btn btn-primary mb-2" onClick={addNewEmployee }>Add Employee</button>
+            <h2 className="text-center">Your Shopping Cart</h2>
             <table className="table table-bordered table-striped">
-                {/* <thead className="table-dark"> */}
-                <thead>   
+                <thead>
                     <tr>
-                        <th> Employee Id </th>
-                        <th> Employee First Name </th>
-                        <th> Employee Last Name </th>
-                        <th> Employee Email Id </th>
-                        <th> Actions </th>
+                        <th>Book ID</th>
+                        <th>Book Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
-                        employees.map(
-                            employee =>
-                            <tr key = {employee.id}> 
-                                <td> {employee.id} </td>
-                                <td> {employee.firstName} </td>
-                                <td> {employee.lastName} </td>
-                                <td>{employee.emailId} </td>
-                                <td>
-                                    <button className="btn btn-info" onClick={() => updateEmployee(employee.id)} >Update</button>
-                                    <button className = "btn btn-danger" onClick = {() => removeEmployee(employee.id)}
-                                    style = {{marginLeft:"10px"}}> Delete</button>
-                                </td>
-                            </tr>
+                        books.map(
+                            book =>
+                                <tr key={book.id}>
+                                    <td>{book.id}</td>
+                                    <td>{book.name}</td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={book.quantity}
+                                            onChange={(event) => handleQuantityChange(event, book.id)}
+                                            style={{ width: '70px' }}
+                                        />
+                                    </td>
+                                    <td>{book.price}</td>
+                                    <td>
+                                        <button className="btn btn-info" onClick={() => updateBook(book.id)}>Update</button>
+                                        <button className="btn btn-danger" onClick={() => removeBook(book.id)} style={{ marginLeft: "10px" }}>Delete</button>
+                                    </td>
+                                </tr>
                         )
                     }
                 </tbody>
@@ -79,4 +93,4 @@ const ListEmployeeComponent = () => {
     )
 }
 
-export default ListEmployeeComponent
+export default ListEmployeeComponent;
