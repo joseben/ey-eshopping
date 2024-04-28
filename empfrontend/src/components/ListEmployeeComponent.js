@@ -39,22 +39,22 @@ const ListBookComponent = () => {
         });
     }
 
-    const saveQuantity = (bookId, index) => {
-        const editedBook = editedBooks[index];
-        updateBook(
-            editedBook.bookID,
-            editedBook.bookName,
-            editedBook.price,
-            editedBook.totalQty,
-            editedBook.custQty
-        )
-            .then(() => {
-                getAllBooks();
-            })
-            .catch(error => {
-                console.log(error);
-            });
-    }
+const saveQuantity = (bookId, index) => {
+    const editedBook = editedBooks[index];
+    updateBook(
+        bookId,
+        editedBook.bookName,
+        editedBook.price,
+        editedBook.totalQty,
+        editedBook.editedQty
+    )
+        .then(() => {
+            getAllBooks();
+        })
+        .catch(error => {
+            console.log(error);
+        });
+}
     
 
     return (
