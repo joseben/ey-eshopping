@@ -1,6 +1,11 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { listBooks, deleteBook, updateBook } from '../services/BookService';
+
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
     const [editedBooks, setEditedBooks] = useState([]);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllBooks();
@@ -112,11 +117,15 @@ const ListBookComponent = () => {
                 <tfoot>
                     <tr>
                         <td colSpan="4" className="text-end">Grand Total:</td>
-                        <td>{calculateGrandTotal()}</td>
+                        <td><strong>{calculateGrandTotal()}</strong></td>
                         <td></td>
                     </tr>
                 </tfoot>
             </table>
+            <div className="text-center">
+                <button className="btn btn-success btn-lg" onClick={() => navigate("/payment")}>Proceed to Payment</button>
+
+            </div>
         </div>
     )
 }
