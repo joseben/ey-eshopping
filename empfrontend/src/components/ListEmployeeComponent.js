@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listBooks, deleteBook, updateBook } from '../services/BookService';
 
-const ListEmployeeComponent = () => {
+const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
+    const [editBookId, setEditBookId] = useState(null);
+    const [editedQuantity, setEditedQuantity] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -35,25 +37,34 @@ const ListEmployeeComponent = () => {
         })
     }
 
+    const startEditing = (bookId, quantity) => {
+        setEditBookId(bookId);
+        setEditedQuantity(quantity.toString());
+    }
+
+    const cancelEditing = () => {
+        setEditBookId(null);
+        setEditedQuantity('');
+    }
+
+    const saveEditedQuantity = (bookId) => {
+        updateQuantity(bookId, parseInt(editedQuantity));
+        cancelEditing();
+    }
+
+    const handleQuantityChange = (event) => {
+        setEditedQuantity(event.target.value);
+    }
+
     function addNewBook() {
         navigate('/add-book');
-    }
-
-    const updateBook = (id) => {
-        navigate(`/edit-book/${id}`);
-    }
-
-    const handleQuantityChange = (event, bookId) => {
-        const newQuantity = parseInt(event.target.value);
-        if (!isNaN(newQuantity)) {
-            updateQuantity(bookId, newQuantity);
-        }
     }
 
     return (
         <div className="container">
             <br /><br />
-            <h2 className="text-center">Your Shopping Cart</h2>
+            <h2 className="text-center">Books List</h2>
+            <button className="btn btn-primary mb-2" onClick={addNewBook}>Add Book</button>
             <table className="table table-bordered table-striped">
                 <thead>
                     <tr>
@@ -72,12 +83,23 @@ const ListEmployeeComponent = () => {
                                     <td>{book.id}</td>
                                     <td>{book.name}</td>
                                     <td>
-                                        <input
-                                            type="number"
-                                            value={book.quantity}
-                                            onChange={(event) => handleQuantityChange(event, book.id)}
-                                            style={{ width: '70px' }}
-                                        />
+                                        {editBookId === book.id ? (
+                                            <div>
+                                                <input
+                                                    type="number"
+                                                    value={editedQuantity}
+                                                    onChange={handleQuantityChange}
+                                                    style={{ width: '70px' }}
+                                                />
+                                                <button className="btn btn-success" onClick={() => saveEditedQuantity(book.id)}>Save</button>
+                                                <button className="btn btn-danger" onClick={cancelEditing}>Cancel</button>
+                                            </div>
+                                        ) : (
+                                            <div>
+                                                {book.quantity}
+                                                <button className="btn btn-primary" onClick={() => startEditing(book.id, book.quantity)}>Edit</button>
+                                            </div>
+                                        )}
                                     </td>
                                     <td>{book.price}</td>
                                     <td>
@@ -93,4 +115,4 @@ const ListEmployeeComponent = () => {
     )
 }
 
-export default ListEmployeeComponent;
+export default ListBookComponent;
