@@ -15,7 +15,7 @@ const ListBookComponent = () => {
     const getAllBooks = () => {
         listBooks().then((response) => {
             setBooks(response.data);
-            setEditedBooks(response.data.map(book => ({ ...book, editedQty: book.custQty })));
+            setEditedBooks(response.data.map(book => ({ ...book, custQty: book.custQty })));
             console.log(response.data);
         }).catch(error => {
             console.log(error);
@@ -34,14 +34,20 @@ const ListBookComponent = () => {
         const { value } = event.target;
         setEditedBooks(prevState => {
             const updatedBooks = [...prevState];
-            updatedBooks[index].editedQty = value;
+            updatedBooks[index].custQty = value;
             return updatedBooks;
         });
     }
 
     const saveQuantity = (bookId, index) => {
-        const book = editedBooks[index];
-        updateBook(bookId, book.bookName, book.editedQty, book.price, book.totalQty)
+        const editedBook = editedBooks[index];
+        updateBook(
+            editedBook.bookID,
+            editedBook.bookName,
+            editedBook.price,
+            editedBook.totalQty,
+            editedBook.custQty
+        )
             .then(() => {
                 getAllBooks();
             })
@@ -49,6 +55,7 @@ const ListBookComponent = () => {
                 console.log(error);
             });
     }
+    
 
     return (
         <div className="container">
@@ -73,7 +80,7 @@ const ListBookComponent = () => {
                                 <td>
                                     <input
                                         type="number"
-                                        value={book.editedQty}
+                                        value={book.custQty}
                                         onChange={(event) => handleQuantityChange(index, event)}
                                     />
                                 </td>
