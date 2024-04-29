@@ -23,7 +23,7 @@ import com.ey.CartBackend.model.Product;
 import com.ey.CartBackend.repository.ProductRepository;
 
 
-@CrossOrigin(origins = "http://localhost:3001")//--> to connect react
+@CrossOrigin(origins = "http://localhost:3000")//--> to connect react
 @RestController
 @RequestMapping("/api/v1/")   //http://localhost:8085/api/v1/
 

@@ -2,8 +2,8 @@
 import {Routes, Route } from 'react-router-dom';
 import FooterComponent from './components/FooterComponent';
 import HeaderComponent from './components/HeaderComponent';
-import ListEmployeeComponent from './components/ListEmployeeComponent';
-import EmployeeComponent from './components/EmployeeComponent';
+import ListBookComponent from './components/ListProductComponent';
+import PaymentComponent from './components/PaymentComponent';
 
 function App() {
   return (
@@ -12,10 +12,11 @@ function App() {
         <HeaderComponent />
         <div className= "container">
           <Routes>
-              <Route exact path = "/" element = { <ListEmployeeComponent /> }></Route>
-              <Route path = "/employees" element = { <ListEmployeeComponent /> }></Route>
-              <Route path = "/add-employee" element = { <EmployeeComponent />} ></Route>
-              <Route path = "/edit-employee/:id" element = { <EmployeeComponent />}></Route>
+              <Route exact path = "/" element = { <ListBookComponent /> }></Route>
+              <Route path = "/employees" element = { <ListBookComponent /> }></Route>
+              <Route path="/payment" element={<PaymentComponent />} />
+
+
             </Routes>
         </div>
         <FooterComponent />
