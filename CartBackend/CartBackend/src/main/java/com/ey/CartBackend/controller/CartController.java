@@ -21,28 +21,33 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ey.CartBackend.exception.ResourceNotFoundException;
 import com.ey.CartBackend.model.Product;
 import com.ey.CartBackend.repository.ProductRepository;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @CrossOrigin(origins = "http://localhost:3000")//--> to connect react
 @RestController
 @RequestMapping("/api/v1/")   //http://localhost:8085/api/v1/
 
-public class CartController {
 
+public class CartController {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 	@Autowired
 	private ProductRepository productRepository;
-	
+		
 //	@Autowired
 //	private CustRepository custRepository;
 		
 	@GetMapping("/products")
 	public List<Product> getAllProducts(){
+		logger.info("All Book details have been sent");
 		return productRepository.findAll();
+		
 	}
 	
     // create product rest api
 	@PostMapping("/products")
 	public Product createProduct(@RequestBody Product product) {
+		logger.info("New Book Details added");
 		return productRepository.save(product);
 	}
 	
@@ -57,6 +62,7 @@ public class CartController {
 		product.setCustQty(productDetails.getCustQty());
 	
 		Product updatedEmployee = productRepository.save(product);
+		logger.info("Customer Quantity Updated");
 		return ResponseEntity.ok(updatedEmployee);
 	}
 	
@@ -71,6 +77,7 @@ public class CartController {
 		productRepository.delete(product);
 		Map<String, Boolean> response = new HashMap<>();
 		response.put("deleted", Boolean.TRUE);
+		logger.info("Book deleted");
 		return ResponseEntity.ok(response);
 	}
 	

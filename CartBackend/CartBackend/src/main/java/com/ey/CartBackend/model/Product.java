@@ -19,6 +19,7 @@ public class Product {
 	@Column(name = "BookName")
 	private String BookName;
 
+	
 	@Column(name = "CustQty")
 	private String CustQty;
 	
