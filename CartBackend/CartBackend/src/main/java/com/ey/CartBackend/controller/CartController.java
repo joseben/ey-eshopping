@@ -46,89 +46,21 @@ public class CartController {
 		return productRepository.save(product);
 	}
 	
+	
+	//Update Customer Quantity
 	@PutMapping("/products/{id}")
 	public ResponseEntity<Product> updateEmployee(@PathVariable String id, @RequestBody Product productDetails){
 		Product product = productRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Product not exist with id :" + id));
 		
 		product.setBookID(productDetails.getBookID());
-		//product.setBookName(productDetails.getBookName());
 		product.setCustQty(productDetails.getCustQty());
-		//product.setTotalQty(productDetails.getTotalQty());
-		//product.setPrice(productDetails.getPrice());
-		
+	
 		Product updatedEmployee = productRepository.save(product);
 		return ResponseEntity.ok(updatedEmployee);
 	}
 	
-	//updating only the customer Quantity
-//	@PatchMapping("/products/{id}")
-//	public ResponseEntity<?> partialUpdateCustQty(
-//	  @RequestBody Map<String, String> updates, @PathVariable("id") String id) {
-//	    
-//	    if(updates.containsKey("CustQty")) {
-//	    	productRepository.updateCustQty(id, updates.get("CustQty"));
-//	        return ResponseEntity.ok("CustQty updated");
-//	    }
-//	    return ResponseEntity.badRequest().body("CustQty not provided");
-//	}
 	
-	//updating only the customer Quantity
-//    @PatchMapping("/products/{id}")
-//    public CustQtyOnly updateCustQty(@PathVariable String id, @RequestBody CustQtyOnly updatedCustQty) {
-//        Optional<CustQtyOnly> optionalUser = custRepository.findById(id);
-//        if (optionalUser.isPresent()) {
-//        	CustQtyOnly user = optionalUser.get();
-//            user.setCustQty(updatedCustQty.getCustQty());
-//            return custRepository.save(user);
-//        } else {
-//            throw new RuntimeException("User not found with id: " + id);
-//        }
-//    }
-//	
-	
-//	@PutMapping("/products/{id}")
-//    public Product updateProduct(@PathVariable String id, @RequestBody Product updatedProduct) {
-//        Optional<Product> optionalProduct = productRepository.findById(id);
-//        if (optionalProduct.isPresent()) {
-//        	
-//            Product product = optionalProduct.get();
-//            System.out.println(product);
-//            // Update specific values based on the request
-//            if (updatedProduct.getCustQty() != null) {
-//                product.setCustQty(updatedProduct.getCustQty());
-//            }
-//            return product;
-//        } else {
-//            throw new RuntimeException("Product not found with id: " + id);
-//        }
-//	}
-	
-//	@PatchMapping("/products/{id}")
-//	public Product updateProduct(@PathVariable String id, @RequestBody Map<String, Object> updates) {
-//	    Optional<Product> optionalProduct = productRepository.findById(id);
-//	    if (optionalProduct.isPresent()) {
-//	        Product product = optionalProduct.get();
-//	        System.out.println(product);
-//	        // Update only the fields present in the request body
-//	        updates.forEach((key, value) -> {
-//	            switch (key) {
-//	                case "custQty":
-//	                    product.setCustQty((String) value);
-//	                    break;
-//	                
-//	                default:
-//	                    // Ignore unknown fields
-//	                    break;
-//	            }
-//	        });
-//	        //return productRepository.save(product);
-//	        return product;
-//	    } else {
-//	        throw new RuntimeException("Product not found with id: " + id);
-//	    }
-//	}
-//	
 	
 	// delete product rest api
 	@DeleteMapping("/products/{id}")
