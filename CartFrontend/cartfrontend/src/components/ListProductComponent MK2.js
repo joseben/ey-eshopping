@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listBooks, deleteBook, updateBook } from '../services/BookService';
 
+import './BookImage.css'; // Import CSS file for image styling
+
 const ListBookComponent = () => {
     const [books, setBooks] = useState([]);
     const [editedBooks, setEditedBooks] = useState([]);
@@ -81,39 +83,46 @@ const ListBookComponent = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {
-                        editedBooks.map((book, index) => (
-                            <tr key={book.bookID}>
-                                <td>{book.bookID}</td>
-                                <td>{book.bookName}</td>
-                                <td>
-                                    <input
-                                        type="number"
-                                        value={book.custQty}
-                                        onChange={(event) => handleQuantityChange(index, event)}
-                                    />
-                                </td>
-                                <td>{book.price}</td>
-                                <td>{calculateTotalPrice(book)}</td>
-                                <td>
-                                    <button
-                                        className="btn btn-primary"
-                                        onClick={() => saveQuantity(book.bookID, index)}
-                                    >
-                                        Save
-                                    </button>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={() => removeBook(book.bookID)}
-                                        style={{ marginLeft: "10px" }}
-                                    >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    }
-                </tbody>
+                        {
+                            editedBooks.map((book, index) => (
+                                <tr key={book.bookID}>
+                                    <td>{book.bookID}</td>
+                                    <td>{book.bookName}</td>
+                                    <td>
+                                        <input
+                                            type="number"
+                                            value={book.custQty}
+                                            onChange={(event) => handleQuantityChange(index, event)}
+                                        />
+                                    </td>
+                                    <td>{book.price}</td>
+                                    <td>{calculateTotalPrice(book)}</td>
+                                    <td>
+                                        <img
+                                            src={`/images/${book.bookID}.jpg`} // Assuming images are named as "bookID.jpg" in the /images folder
+                                            alt={book.bookName}
+                                            className="book-image"
+                                        />
+                                    </td>
+                                    <td>
+                                        <button
+                                            className="btn btn-primary"
+                                            onClick={() => saveQuantity(book.bookID, index)}
+                                        >
+                                            Save
+                                        </button>
+                                        <button
+                                            className="btn btn-danger"
+                                            onClick={() => removeBook(book.bookID)}
+                                            style={{ marginLeft: "10px" }}
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+                    </tbody>
                 <tfoot>
                     <tr>
                         <td colSpan="4" className="text-end">Grand Total:</td>
