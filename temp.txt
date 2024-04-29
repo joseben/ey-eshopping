@@ -1,0 +1,27 @@
+@PatchMapping("/{id}")
+public Product updateProduct(@PathVariable Long id, @RequestBody Map<String, Object> updates) {
+    Optional<Product> optionalProduct = productRepository.findById(id);
+    if (optionalProduct.isPresent()) {
+        Product product = optionalProduct.get();
+        // Update only the fields present in the request body
+        updates.forEach((key, value) -> {
+            switch (key) {
+                case "name":
+                    product.setName((String) value);
+                    break;
+                case "price":
+                    product.setPrice((Double) value);
+                    break;
+                case "quantity":
+                    product.setQuantity((Integer) value);
+                    break;
+                default:
+                    // Ignore unknown fields
+                    break;
+            }
+        });
+        return productRepository.save(product);
+    } else {
+        throw new RuntimeException("Product not found with id: " + id);
+    }
+}
