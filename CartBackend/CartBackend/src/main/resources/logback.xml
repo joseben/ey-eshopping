@@ -1,6 +1,6 @@
 <configuration>
     <appender name="fileAppender" class="ch.qos.logback.core.FileAppender">
-        <file>logs/mylogfile.log</file> <!-- Path to your log file -->
+        <file>C:\Users\UH757VN\OneDrive - EY\Documents\GitHub\ey-eshopping\CartBackend\CartBackend/logs/mylogfile.log</file> <!-- Path to your log file -->
         <encoder>
             <pattern>%d [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
