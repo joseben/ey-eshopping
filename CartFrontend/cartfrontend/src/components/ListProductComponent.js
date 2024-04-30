@@ -81,6 +81,7 @@ const ListBookComponent = () => {
                         <th>Quantity</th>
                         <th>Price</th>
                         <th>Total Price</th>
+                        <th>Book</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

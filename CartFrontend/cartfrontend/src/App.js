@@ -13,7 +13,6 @@ function App() {
         <div className= "container">
           <Routes>
               <Route exact path = "/" element = { <ListBookComponent /> }></Route>
-              <Route path = "/employees" element = { <ListBookComponent /> }></Route>
               <Route path="/payment" element={<PaymentComponent />} />
 
 
