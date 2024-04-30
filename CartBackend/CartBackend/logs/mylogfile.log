@@ -1,27 +1,31 @@
-Exception in thread "restartedMain" java.lang.reflect.InvocationTargetException
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
-Caused by: java.lang.IllegalArgumentException: LoggerFactory is not a Logback LoggerContext but Logback is on the classpath. Either remove Logback or the competing implementation (class org.apache.logging.slf4j.Log4jLoggerFactory loaded from file:/C:/Users/UH757VN/.m2/repository/org/apache/logging/log4j/log4j-slf4j-impl/2.17.0/log4j-slf4j-impl-2.17.0.jar). If you are using WebLogic you will need to add 'org.slf4j' to prefer-application-packages in WEB-INF/weblogic.xml: org.apache.logging.slf4j.Log4jLoggerFactory
-	at org.springframework.util.Assert.instanceCheckFailed(Assert.java:702)
-	at org.springframework.util.Assert.isInstanceOf(Assert.java:621)
-	at org.springframework.boot.logging.logback.LogbackLoggingSystem.getLoggerContext(LogbackLoggingSystem.java:294)
-	at org.springframework.boot.logging.logback.LogbackLoggingSystem.beforeInitialize(LogbackLoggingSystem.java:118)
-	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationStartingEvent(LoggingApplicationListener.java:232)
-	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:213)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
-	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:131)
-	at org.springframework.boot.context.event.EventPublishingRunListener.starting(EventPublishingRunListener.java:79)
-	at org.springframework.boot.SpringApplicationRunListeners.lambda$starting$0(SpringApplicationRunListeners.java:56)
-	at java.base/java.util.ArrayList.forEach(ArrayList.java:1511)
-	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:120)
-	at org.springframework.boot.SpringApplicationRunListeners.starting(SpringApplicationRunListeners.java:56)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:293)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1301)
-	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1290)
-	at com.ey.CartBackend.CartBackendApplication.main(CartBackendApplication.java:10)
-	... 5 more
+2024-04-30 09:38:59.474  INFO 56392 --- [  restartedMain] c.e.C.CartBackendApplication             : Starting CartBackendApplication using Java 17.0.10 on IN3550742W1 with PID 56392 (C:\Users\UH757VN\OneDrive - EY\Documents\GitHub\ey-eshopping\CartBackend\CartBackend\target\classes started by UH757VN in C:\Users\UH757VN\OneDrive - EY\Documents\GitHub\ey-eshopping\CartBackend\CartBackend)
+2024-04-30 09:38:59.489  INFO 56392 --- [  restartedMain] c.e.C.CartBackendApplication             : No active profile set, falling back to default profiles: default
+2024-04-30 09:38:59.565  INFO 56392 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2024-04-30 09:38:59.565  INFO 56392 --- [  restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2024-04-30 09:39:00.478  INFO 56392 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-04-30 09:39:00.607  INFO 56392 --- [  restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 104 ms. Found 1 JPA repository interfaces.
+2024-04-30 09:39:01.647  INFO 56392 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port(s): 8085 (http)
+2024-04-30 09:39:01.663  INFO 56392 --- [  restartedMain] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-04-30 09:39:01.664  INFO 56392 --- [  restartedMain] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/9.0.56]
+2024-04-30 09:39:01.886  INFO 56392 --- [  restartedMain] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-04-30 09:39:01.886  INFO 56392 --- [  restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2320 ms
+2024-04-30 09:39:02.141  INFO 56392 --- [  restartedMain] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-04-30 09:39:02.209  INFO 56392 --- [  restartedMain] o.h.Version                              : HHH000412: Hibernate ORM core version 5.6.3.Final
+2024-04-30 09:39:02.406  INFO 56392 --- [  restartedMain] o.h.a.c.Version                          : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2024-04-30 09:39:02.605  INFO 56392 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-04-30 09:39:03.022  INFO 56392 --- [  restartedMain] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-04-30 09:39:03.060  INFO 56392 --- [  restartedMain] o.h.d.Dialect                            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2024-04-30 09:39:04.000  INFO 56392 --- [  restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2024-04-30 09:39:04.009  INFO 56392 --- [  restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-04-30 09:39:04.508  WARN 56392 --- [  restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-04-30 09:39:05.076  INFO 56392 --- [  restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-04-30 09:39:05.149  INFO 56392 --- [  restartedMain] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port(s): 8085 (http) with context path ''
+2024-04-30 09:39:05.165  INFO 56392 --- [  restartedMain] c.e.C.CartBackendApplication             : Started CartBackendApplication in 6.424 seconds (JVM running for 8.055)
+2024-04-30 09:39:10.388  INFO 56392 --- [nio-8085-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-04-30 09:39:10.388  INFO 56392 --- [nio-8085-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-04-30 09:39:10.392  INFO 56392 --- [nio-8085-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 4 ms
+2024-04-30 09:39:10.445  INFO 56392 --- [nio-8085-exec-2] c.e.C.c.CartController                   : All Book details have been sent
+2024-04-30 09:39:37.221  INFO 56392 --- [nio-8085-exec-3] c.e.C.c.CartController                   : New Book Details added
+2024-04-30 09:39:57.700  INFO 56392 --- [nio-8085-exec-4] c.e.C.c.CartController                   : Book deleted
+2024-04-30 09:40:51.890  WARN 56392 --- [nio-8085-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' not supported]
+2024-04-30 09:40:56.802  INFO 56392 --- [nio-8085-exec-6] c.e.C.c.CartController                   : New Book Details added
