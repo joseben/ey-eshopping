@@ -1,0 +1,78 @@
+/* BookTable.css */
+.book-inventory {
+    /* overflow:hidden;  */
+   
+    margin: 0 50px;
+  }
+  .book-inventory table {
+    border-radius: 20px;
+  }
+   
+  .book-table {
+    width: 100%;
+   
+    border-collapse: collapse;
+    border-radius: 20px;
+  }
+   
+  .book-table th,
+  .book-table td {
+    border: 1px solid #003135;
+    padding: 8px;
+    text-align: left;
+  }
+   
+  .book-table th {
+    color: #000;
+    margin-bottom: 50px;
+  }
+   
+  .book-image img {
+    width: 100px;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+   
+    border-radius: 12px; 
+  }
+   
+  .book-inventory-header {
+    border: solid 0.5px #1b1b1b;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+   
+  .book-width {
+    width: 25%;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+  }
+  .book-inventory-item {
+    border: solid 0.5px #c4c4c4;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+   
+  .book-width-header {
+    width: 25%;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    font-weight: bold;
+  }
+
+  .book-width-id {
+    width: 10%;
+    text-align: left;
+    display: flex;
+    justify-content: left;
+    font-weight: bold;
+  }

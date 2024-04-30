@@ -1,0 +1,59 @@
+/* Banner.css */
+.banner {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    background-color: #FFDCD4; 
+    border: 2px solid #A1422B; 
+    padding: 30px; 
+    margin-top: 30px;
+    margin-left: 50px;
+    margin-right: 50px;
+    border-radius: 20px; 
+}
+ 
+.banner-content {
+    max-width: 50%; 
+    text-align: left; 
+}
+ 
+.banner-text {
+    margin-bottom: 20px; /* Add margin between heading and description */
+}
+ 
+.banner-heading {
+    font-size: 36px;
+    font-weight: bold;
+    color: #A1422B;
+    margin-bottom: 4px; /* Reduce space between heading and description */
+    font-family: 'Bree Serif', serif; 
+}
+ 
+.banner-description {
+    font-size: 24px;
+    color: #A1422B;
+    margin-top: 9px;
+}
+ 
+.banner-button {
+    padding: 14px 30px;
+    background-color: #ffffff;
+    color: #A1422B;
+    border: none;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 32px;
+    cursor: pointer;
+    font-family: 'DM Sans';
+}
+ 
+.banner-button:hover {
+    background-color:#A1422B;
+    color: #ffffff;
+}
+ 
+.banner-image img {
+    width: 500px;
+    height: 300px;
+    border-radius: 20px; 
+}
